@@ -1,4 +1,4 @@
-package termin1.Uebungen;
+package termin1.Uebungen.src;
 
 public class RecursionUebung1 {
         /**

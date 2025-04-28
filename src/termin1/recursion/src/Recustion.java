@@ -1,5 +1,3 @@
-package termin1.recursion;
-
 public class Recustion {
     static int findSum(int n) {
         // Base case 

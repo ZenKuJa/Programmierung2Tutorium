@@ -1,6 +1,6 @@
-package termin1.Uebungen.Loesung;
+package termin1.Uebungen.src.Loesung;
 
-public class RecursionUebung1 {
+public class RecursionLoesung1 {
         /**
          * Aufgabe 1: Fakultät
          * Schreiben Sie eine rekursive Java-Methode namens `fakultaet`, die die Fakultät

@@ -19,34 +19,26 @@ Janens Kurzke und Fabian Bauriedl
 
 ---
 ## Inhalt
-1. Themen Besprechung
-1. Algorithmen
-1. Suchalgorithmen
+1. Organisatorisches
 1. Rekursion
+1. Suchalgorithmen
 1. Sortieralgorithmen
 
 ---
-## Themen
+## Organisatorisches
 > Steffen und Mario behandeln die Themen in unterschiedlicher Reihenfolge
 
----
-## Themen
-> Steffen und Mario behandeln die Themen in unterschiedlicher Reihenfolge
-
-
-| Option 1 | Option 2 | Option 3 |
-|---|---|---|
-|Steffen|Mario|Eure Wuensche|
+<img src = "..//resources//mentimeter.png" alt = "mentimeter qr-code">
 
 ---
-## Themen
-> Steffen und Mario behandeln die Themen in unterschiedlicher Reihenfolge
-
-<img src = "..//ressources//mentimeter.png" alt = "mentimeter qr-code">
-
+## Organisatorisches
+Komm in die Gruppe!
+<img src = "..//resources//whatsapp.png" alt = "whatsapp groupd qr code">
 
 ---
-## Algorithmen
+## Rekursion
+
+<img src = "https://blog.penjee.com/wp-content/uploads/2016/05/factorial-code-animation.gif" alt = "recursion">
 
 ---
 ## Suchalgorithmen
@@ -122,11 +114,6 @@ public static int interpolationSearch(int array[], int lo, int hi, int x) {
 ```
 
 ---
-## Rekursion
-
-<img src = "https://blog.penjee.com/wp-content/uploads/2016/05/factorial-code-animation.gif" alt = "recursion">
-
----
 ## Sortieralgorithmen
 > Selection Sort
 
@@ -137,7 +124,23 @@ public static int interpolationSearch(int array[], int lo, int hi, int x) {
 > Selection Sort
 
 ```Java
+public static void selectionSort(int[] array) {
+    int arrayLength = array.length;
 
+    for (int currentPosition = 0; currentPosition < arrayLength - 1; currentPosition++) {
+        int minimumIndex = currentPosition;
+
+        for (int index = currentPosition + 1; index < arrayLength; index++) {
+            if (array[index] < array[minimumIndex]) {
+                minimumIndex = index;
+            }
+        }
+
+        int temporary = array[minimumIndex];
+        array[minimumIndex] = array[currentPosition];
+        array[currentPosition] = temporary;
+    }
+}
 ```
 ---
 ## Sortieralgorithmen
@@ -150,7 +153,19 @@ public static int interpolationSearch(int array[], int lo, int hi, int x) {
 > Bubble Sort
 
 ```Java
-
+public static void bubbleSort(int[] array) {
+    int arrayLength = array.length;
+    
+    for (int pass = 0; pass < arrayLength - 1; pass++) {
+        for (int index = 0; index < arrayLength - pass - 1; index++) {
+            if (array[index] > array[index + 1]) {
+                int temporary = array[index];
+                array[index] = array[index + 1];
+                array[index + 1] = temporary;
+            }
+        }
+    }
+}
 ```
 ---
 ## Sortieralgorithmen
@@ -163,7 +178,20 @@ public static int interpolationSearch(int array[], int lo, int hi, int x) {
 > Insertion Sort
 
 ```Java
+public static void insertionSort(int[] array) {
+    int arrayLength = array.length;
 
+    for (int index = 1; index < arrayLength; index++) {
+        int currentValue = array[index];
+
+        int position = index;
+        while (position > 0 && array[position - 1] > currentValue) {
+            array[position] = array[position - 1];
+            position--;
+        }
+        array[position] = currentValue;
+    }
+}
 ```
 ---
 ## Sortieralgorithmen
@@ -176,21 +204,103 @@ public static int interpolationSearch(int array[], int lo, int hi, int x) {
 > Quick Sort
 
 ```Java
+public static void quickSort(int[] array, int left, int right) {
+    if (left < right) {
+        int partitionIndex = partition(array, left, right);
+        quickSort(array, left, partitionIndex - 1);
 
+        quickSort(array, partitionIndex + 1, right);
+    }
+}
 ```
 ---
 ## Sortieralgorithmen
+> Quick Sort
+
+```Java
+private static int partition(int[] array, int left, int right) {
+    int pivot = array[right];
+    int i = left - 1;
+    for (int j = left; j < right; j++) {
+        if (array[j] < pivot) {
+            i++;
+            int temporary = array[i];
+            array[i] = array[j];
+            array[j] = temporary;
+        }
+    }
+    int temporary = array[i + 1];
+    array[i + 1] = array[right];
+    array[right] = temporary;
+    return i + 1;
+}
+```
+
+---
+## Sortieralgorithmen
 > Merge Sort
-<img src = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Funnel_sorting_algorithm_with_merging.gif" alt ="merge sort" height = "250">
+<img src = "https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif" alt ="merge sort" height = "250">
 
 ---
 ## Sortieralgorithmen
 > Merge Sort
 
 ```Java
+public static void mergeSort(int[] array, int left, int right) {
+    if (left < right) {
+        int middle = (left + right) / 2;
+        mergeSort(array, left, middle);
 
+        mergeSort(array, middle + 1, right);
+        merge(array, left, middle, right);
+    }
+}
+```
+
+---
+## Sortieralgorithmen
+> Merge Sort
+
+```Java
+private static void merge(int[] array, int left, int middle, int right) {
+    int leftArrayLength = middle - left + 1;
+    int rightArrayLength = right - middle;
+
+    int[] leftArray = new int[leftArrayLength];
+    int[] rightArray = new int[rightArrayLength];
+
+    for (int i = 0; i < leftArrayLength; ++i)
+        leftArray[i] = array[left + i];
+    for (int j = 0; j < rightArrayLength; ++j)
+        rightArray[j] = array[middle + 1 + j];
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+
+    while (i < leftArrayLength && j < rightArrayLength) {
+        if (leftArray[i] <= rightArray[j]) {
+            array[k] = leftArray[i];
+            i++;
+        } else {
+            array[k] = rightArray[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < leftArrayLength) {
+        array[k] = leftArray[i];
+        i++;
+        k++;
+    }
+    while (j < rightArrayLength) {
+        array[k] = rightArray[j];
+        j++;
+        k++;
+    }
+}
 ```
 
 ---
 ## Zeit zum Üben
-<img src = "..//ressources//github.png" alt = "github repo">
+<img src = "..//resources//github.png" alt = "github repo">

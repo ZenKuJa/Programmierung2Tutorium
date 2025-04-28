@@ -1,8 +1,8 @@
-package termin1.Uebungen.Loesung;
+package termin1.Uebungen.src;
 
 import java.util.Arrays;
 
-public class SearchExercise3 {
+public class SearchUebung3 {
      /**
      * Aufgabe 3: Interpolationssuche
      * Schreiben Sie eine Java-Methode namens `interpolationsSuche`, die in einem
@@ -19,32 +19,12 @@ public class SearchExercise3 {
      * pos = links + ((ziel - arr[links]) * (rechts - links)) / (arr[rechts] - arr[links])
      */
     public static int interpolationsSuche(int[] arr, int ziel, int links, int rechts) {
-        if (links > rechts || ziel < arr[links] || ziel > arr[rechts]) {
-            return -1; // Zielwert außerhalb des Suchbereichs
-        }
 
-        // Vermeide Division durch Null
-        if (arr[links] == arr[rechts]) {
-            if (arr[links] == ziel) return links;
-            else return -1;
-        }
-
-        // Schätze die Position des Zielwerts
-        int pos = links + ((ziel - arr[links]) * (rechts - links)) / (arr[rechts] - arr[links]);
-
-        if (arr[pos] == ziel) {
-            return pos; // Zielwert gefunden
-        } else if (arr[pos] < ziel) {
-            return interpolationsSuche(arr, ziel, pos + 1, rechts); // Suche im rechten Teil
-        } else {
-            return interpolationsSuche(arr, ziel, links, pos - 1); // Suche im linken Teil
-        }
     }
 
     // Überladene Methode für den einfachen Aufruf
     public static int interpolationsSuche(int[] arr, int ziel) {
-        Arrays.sort(arr); // Stellen Sie sicher, dass das Array sortiert ist
-        return interpolationsSuche(arr, ziel, 0, arr.length - 1);
+        
     }
 
     public static void main(String[] args) {
