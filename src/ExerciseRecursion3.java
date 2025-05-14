@@ -1,7 +1,6 @@
 package src;
 
-public class ExerciseRecursion2 {
-
+public class ExerciseRecursion3 {
     /**
      * Aufgabe 2: Fibonacci-Folge
      * Schreiben Sie eine rekursive Java-Methode namens `fibonacci`, die das n-te
