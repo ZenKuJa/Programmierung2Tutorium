@@ -1,7 +1,7 @@
 package src;
 
-public class ExerciseRecursion1 {
-    /** 
+public class SolutionRecursion1 {
+    /**
      * Aufgabe 1: Fakultät
      * Schreiben Sie eine rekursive Java-Methode namens `fakultaet`, die die Fakultät
      * einer gegebenen nicht-negativen ganzen Zahl `n` berechnet.
@@ -11,7 +11,14 @@ public class ExerciseRecursion1 {
      * Die Fakultät von 0 ist per Definition 1.
      */
     public static long fakultaet(int n) {
-        
+        if (n < 0) {
+            throw new IllegalArgumentException("Die Fakultät ist für negative Zahlen nicht definiert.");
+        }
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * fakultaet(n - 1);
+        }
     }
 
     public static void main(String[] args) {
