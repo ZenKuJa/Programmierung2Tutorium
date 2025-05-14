@@ -1,4 +1,4 @@
-package termin1.SortAlgorithms.src;
+package Session1.SortAlgorithms;
 
 import java.util.Arrays;
 

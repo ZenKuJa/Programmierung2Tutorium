@@ -1,4 +1,4 @@
-package termin1.SearchAlgorithms;
+package Session1.SearchAlgorithms;
 
 public class SearchAlgorithms {
 

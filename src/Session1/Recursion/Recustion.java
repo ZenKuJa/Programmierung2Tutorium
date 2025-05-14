@@ -1,4 +1,4 @@
-package termin1.recursion.src;
+package Session1.Recursion;
 
 public class Recustion {
     static int faculty(int n) {
