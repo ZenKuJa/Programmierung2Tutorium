@@ -1,8 +1,8 @@
-package termin1.Uebungen.src;
+package termin1.Uebungen.src.Loesung;
 
 import java.util.Arrays;
 
-public class SearchExercise2 {
+public class SearchLoesung2 {
     
     /**
      * Aufgabe 2: Binäre Suche

@@ -14,45 +14,15 @@ public class SortUebungen3 {
      * werden dann rekursiv sortiert.
      */
     public static void quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            // Finde den Pivot-Index, arr[p] ist nun an der richtigen Position
-            int p = partition(arr, low, high);
-
-            // Sortiere Elemente vor und nach dem Pivot rekursiv
-            quickSort(arr, low, p - 1);
-            quickSort(arr, p + 1, high);
-        }
+        
     }
 
     private static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = (low - 1); // Index des kleineren Elements
-        for (int j = low; j < high; j++) {
-            // Wenn das aktuelle Element kleiner oder gleich dem Pivot ist
-            if (arr[j] <= pivot) {
-                i++;
 
-                // Vertausche arr[i] und arr[j]
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-
-        // Vertausche arr[i+1] und arr[high] (Pivot an die richtige Position)
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-
-        return i + 1;
     }
 
     // Überladene Methode für den einfachen Aufruf
     public static void quickSort(int[] arr) {
-        if (arr == null || arr.length <= 1) {
-            return;
-        }
-        quickSort(arr, 0, arr.length - 1);
     }
 
     public static void main(String[] args) {

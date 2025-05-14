@@ -55,9 +55,7 @@ public class SearchAlgorithms {
     public static int interpolationSearch(int[] array, int low,
                                           int high, int number)
     {
-        // Since array is sorted, an element
-        // present in array must be in range
-        // defined by corner
+        // src/termin1/Uebungen/src/SortUebungen1.java src/termin1/Uebungen/src/SortUebungen2.java src/termin1/Uebungen/src/SortUebungen3.java
         if (low <= high && number >= array[low] && number <= array[high]) {
 
             // Interpolation tries to guess the position of the element

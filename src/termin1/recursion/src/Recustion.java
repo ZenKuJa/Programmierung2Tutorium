@@ -1,15 +1,17 @@
+package termin1.recursion.src;
+
 public class Recustion {
-    static int findSum(int n) {
+    static int faculty(int n) {
         // Base case 
         if (n == 1) 
             return 1; 
         
         // Recursive case 
-        return n + findSum(n - 1);
+        return n * faculty(n - 1);
     }
 
     public static void main(String[] args) {
         int n = 5;
-        System.out.println(findSum(n));
+        System.out.println(faculty(n));
     }
 }

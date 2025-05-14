@@ -2,7 +2,7 @@ package termin1.Uebungen.src;
 
 import java.util.Arrays;
 
-public class SortUebungen3 {
+public class SortLoesungen {
     /**
      * Aufgabe 3: Quick Sort
      * Schreiben Sie eine rekursive Java-Methode namens `quickSort`, die ein gegebenes

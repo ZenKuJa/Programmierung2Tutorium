@@ -1,6 +1,6 @@
-package termin1.Uebungen.src;
+package termin1.Uebungen.src.Loesung;
 
-public class SearchExercise1 {
+public class SearchLoesung1 {
     /**
      * Aufgabe 1: Lineare Suche
      * Schreiben Sie eine Java-Methode namens `lineareSuche`, die in einem gegebenen

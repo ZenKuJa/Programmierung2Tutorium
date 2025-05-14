@@ -2,7 +2,7 @@ package termin1.Uebungen.src.Loesung;
 
 import java.util.Arrays;
 
-public class SearchUebung3 {
+public class SearchLoesung3 {
      /**
      * Aufgabe 3: Interpolationssuche
      * Schreiben Sie eine Java-Methode namens `interpolationsSuche`, die in einem
