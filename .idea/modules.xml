@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GenericsExercises/GenericsExercises.iml" filepath="$PROJECT_DIR$/GenericsExercises/GenericsExercises.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GenericsSolutions/GenericsSolutions.iml" filepath="$PROJECT_DIR$/GenericsSolutions/GenericsSolutions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OptionalsExercises/OptionalsExercises.iml" filepath="$PROJECT_DIR$/OptionalsExercises/OptionalsExercises.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OptionalsSolutions/OptionalsSolutions.iml" filepath="$PROJECT_DIR$/OptionalsSolutions/OptionalsSolutions.iml" />
       <module fileurl="file://$PROJECT_DIR$/Programmierung2Tutorium.iml" filepath="$PROJECT_DIR$/Programmierung2Tutorium.iml" />
     </modules>
   </component>
