@@ -444,7 +444,7 @@ public static void main(String[] args) {
 
 ---
 ## Git Cheat Sheet
-<a src = "https://phoenixnap.com/kb/wp-content/uploads/2021/11/git-commands-cheat-sheet-by-pnap-v2.pdf">
+<a href = "https://phoenixnap.com/kb/wp-content/uploads/2021/11/git-commands-cheat-sheet-by-pnap-v2.pdf">
     <img src = "../resources/GitCheatSheet.png" alt = "Git-Cheat-Sheet" width = 700px>
 </a>
 
