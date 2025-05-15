@@ -2,6 +2,7 @@ package Session1.SearchAlgorithms;
 
 public class SearchAlgorithms {
 
+  // EXERCISES
     // LINEAR SEARCH
         // Array does not have to be sorted
     static int linearSearch(int[] array, int number)
