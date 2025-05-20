@@ -37,6 +37,8 @@ git checkout exercise/[topic]
 
 #### Topics
 
+Für jedes Thema ein eigener Branch
+
 - recursion
 - exceptions
 - generics
