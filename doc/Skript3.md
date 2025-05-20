@@ -40,8 +40,6 @@ Jannes Kurzke und Fabian Bauriedl
 git clone https://github.com/ZenKuJa/Programmierung2Tutorium.git
 
 git checkout exercise/[topic]
-
-
 ```
 
 ---
