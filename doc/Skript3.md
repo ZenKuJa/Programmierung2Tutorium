@@ -33,6 +33,10 @@ Jannes Kurzke und Fabian Bauriedl
 git clone https://github.com/ZenKuJa/Programmierung2Tutorium.git
 
 git checkout exercise/[topic]
+
+
+# Beispiel, um Aufgaben zu Exceptions zu bearbeiten:
+git checkout exercise/exceptions
 ```
 
 #### Topics
