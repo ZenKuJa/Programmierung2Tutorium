@@ -22,8 +22,15 @@ Jannes Kurzke und Fabian Bauriedl
 
 ## Inhalt
 
-1. Git clone Übungen
-1. Übungen
+1. Projektbericht
+2. Git clone Übungen
+3. Übungen
+
+---
+
+### Projektbericht
+
+-> Unsere Projektberichte sind im GitHub repo unter `/docs`
 
 ---
 
@@ -35,9 +42,9 @@ git clone https://github.com/ZenKuJa/Programmierung2Tutorium.git
 git checkout exercise/[topic]
 
 
-# Beispiel, um Aufgaben zu Exceptions zu bearbeiten:
-git checkout exercise/exceptions
 ```
+
+---
 
 #### Topics
 
@@ -49,5 +56,10 @@ Für jedes Thema ein eigener Branch
 - optionals
 - search
 - hashmap
+
+```bash
+# Beispiel, um Aufgaben zu Exceptions zu bearbeiten:
+git checkout exercise/exceptions
+```
 
 ---
