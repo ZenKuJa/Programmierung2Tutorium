@@ -30,7 +30,7 @@ Jannes Kurzke und Fabian Bauriedl
 
 ### Projektbericht
 
--> Unsere Projektberichte sind im GitHub repo unter `/docs`
+-> Unsere Projektberichte sind im GitHub repo unter `docs/projektberichte`
 
 ---
 
