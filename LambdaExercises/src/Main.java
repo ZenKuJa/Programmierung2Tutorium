@@ -106,6 +106,13 @@ public class Main {
 
         // Aufgabe 30: Top 3 Noten extrahieren.
             // Extrahiere die drei besten Noten (kleinsten Werte) und speichere sie in einer Liste.
+
+
+
+        // WEITERE AUFGABEN HIER:
+            // Klausur Steffen 2023: https://jappuccini.github.io/java-docs/production/additional-material/steffen/java-2/exam-preparation/2023
+            // Klausur Steffen 2024: https://jappuccini.github.io/java-docs/production/additional-material/steffen/java-2/exam-preparation/2024
+            // Übungsaufgaben Steffen: https://jappuccini.github.io/java-docs/production/exercises/java-stream-api/
     }
 }
 
