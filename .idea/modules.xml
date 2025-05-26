@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ExceptionsExercises/ExceptionsExercises.iml" filepath="$PROJECT_DIR$/ExceptionsExercises/ExceptionsExercises.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ExceptionsSolutions/ExceptionsSolutions.iml" filepath="$PROJECT_DIR$/ExceptionsSolutions/ExceptionsSolutions.iml" />
       <module fileurl="file://$PROJECT_DIR$/Programmierung2Tutorium.iml" filepath="$PROJECT_DIR$/Programmierung2Tutorium.iml" />
     </modules>
   </component>
