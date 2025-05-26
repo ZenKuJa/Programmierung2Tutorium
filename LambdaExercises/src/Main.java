@@ -68,5 +68,9 @@ public class Main {
             // Das Interface IsShortWord enthält eine Funktion check mit einem Parameter String word
             // Die lambda Funktion prüft ob das Wort weniger als 5 Buchstaben enthält
             // Gib im Terminal aus ob der String "Hund" und der String "Elefant" weniger als 5 Buchstaben hat
+
+
+
+        // WEITERE AUFGABEN HIER (Übungen Steffen): https://jappuccini.github.io/java-docs/production/exercises/lambdas/
     }
 }
