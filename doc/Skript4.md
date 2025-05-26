@@ -145,6 +145,77 @@ public static void main(String[] args) {
 
 ---
 
+## Funktionale Interfaces
+* Interface mit genau einer abstrakten Methode
+* Nützlich um Zusammenspiel mit Lambdas und Streams
+* Code einmal implementiert kann an verschidenen Stellen aufgerufen werden
+
+---
+## Consumer Interface
+* Führt eine Aktion auf einen Eingabe Wert aus
+* Liefert keinen Rückgabewert
+* Abstrakte Methode: `void accept(T t)` 
+* Geschrieben als: `Consumer <T>`
+* z.B. Verarbeitung von Listen, Logging, Debugging, etc.
+
+```java
+public static void main(String[] args) {
+    Consumer<String> printer = text -> System.out.println("Text: " + text);
+    printer.accept("Hello World");
+}
+```
+
+---
+## BiConsumer Interface
+* Führt eine Aktion auf zwei Eingabe Werte aus
+* Liefert keinen Rückgabewert
+* Abstrakte Methode: `void accept(T t, U u)`
+* Geschrieben als: `BiConsumer <T, U>`
+* Praktisch für Key-Value Paare
+
+```java
+public static void main(String[] args) {
+    BiConsumer<String, Integer> biPrinter = (name, age) -> 
+        System.out.println("Name: " + name + " age: " + age);
+
+    biPrinter.accept("Thorsten", 137);
+}  
+```
+
+---
+## Predicate Interface
+* Verarbeitet einen Eingabewert
+* Liefert Boolean Rückgabewert
+* Abstrakte Methode: `boolean test(T t)`
+* Geschrieben als: `Predicate <T>`
+* Praktisch für Filter-Logik
+
+```java
+public static void main(String[] args) {
+    Predicate<Integer> ageCheck = age -> age > 18;
+    
+    System.out.println(ageCheck.test(14));
+    System.out.println(ageCheck.test(22));
+} 
+```
+
+---
+## Function Interface
+* Führt eine Aktion auf einen Eingabe Wert aus
+* Liefert beliebigen Rückgabewert
+* Abstrakte Methode: `R apply(T t)`
+* Geschrieben als: `Function<T, R>`
+* Kann z.B. Typen in anderen Typen umwandeln, Längen von Strings ermitteln, etc.
+
+```java
+public static void main(String[] args) {
+    Function<String, Integer> lengthGetter = s -> s.length();
+    System.out.println(lengthGetter.apply("HelloWorld"));
+} 
+```
+
+---
+
 ## Javas Stream API
 
 * Ermöglicht das Arbeiten mit Strömen
