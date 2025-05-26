@@ -1,100 +1,203 @@
 package src;
 
-import java.util.function.*;
+import java.util.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.*;
 
 public class MainSolution {
     public static void main(String[] args) {
 
-        /// LAMBDA EXPRESSIONS
-        // AUFGABE 1: Runnable ohne Parameter, ohne Rückgabewert, eine Anweisung
-            // Das Runnable sayHello soll "Hallo Welt" im Terminal ausgeben
-        Runnable sayHello = () -> System.out.println("Hallo Welt!");
-        sayHello.run();
+        List<StudentSolution> students = List.of(
+                new StudentSolution("Anna", 22, "female", 1.3, "Computer Science"),
+                new StudentSolution("Ben", 24, "male", 2.0, "Mathematics"),
+                new StudentSolution("Carla", 21, "female", 2.5, "Physics"),
+                new StudentSolution("David", 23, "male", 1.7, "Engineering"),
+                new StudentSolution("Ella", 20, "female", 1.0, "Computer Science"),
+                new StudentSolution("Finn", 25, "male", 3.2, "History"),
+                new StudentSolution("Greta", 22, "female", 1.9, "Biology")
+        );
 
-        // AUFGABE 2: Consumer mit 1 Parameter, keine Rückgabe, eine Anweisung
-            // Der Consumer printName mit Typ String soll beim Aufruf für einen String name "Name: " + name ausgeben
-        Consumer<String> printName = name -> System.out.println("Name: " + name);
-        printName.accept("Anna");
+        // Aufgabe 1: Alle Studierenden ausgeben.
+        // Schreibe eine Stream-Operation, die alle Studierenden in der Konsole ausgibt.
+        students.forEach(System.out::println);
 
-        // AUFGABE 3: Function mit 1 Parameter, 1 Rückgabewert, eine Anweisung
-            // Die Function wordLength mit Typen <String, Integer> soll für einen übergebenen String die Länge des Strings ausgeben
-        Function<String, Integer> wordLength = word -> word.length();
-        System.out.println("Länge: " + wordLength.apply("Lambda"));
+        // Aufgabe 2: Nur weibliche Studierende filtern.
+        // Filtere die Liste so, dass nur weibliche Studierende ausgegeben werden.
+        students.stream()
+                .filter(s -> s.getGender().equals("female"))
+                .forEach(System.out::println);
 
-        // AUFGABE 4: BiConsumer mit 2 Parametern, keine Rückgabe, eine Anweisung
-            // Der BiConsumer printAge mit Typen <String, Integer> soll eien übergebenen Namen + Alter ausgeben
-        BiConsumer<String, Integer> printAge = (name, age) -> System.out.println(name + " ist " + age + " Jahre alt.");
-        printAge.accept("Lukas", 29);
+        // Aufgabe 3: Studierende mit Note < 2.0 anzeigen.
+        // Zeige alle Studierenden mit einer Note besser als 2.0 an.
+        students.stream()
+                .filter(s -> s.getGrade() < 2.0)
+                .forEach(System.out::println);
 
-        // AUFGABE 5: BiFunction mit 2 Parametern, 1 Rückgabewert, eine Anweisung
-            // Die BiFunction mit Typ <Integer, Integer, Integer> sum soll zwei Integer a und b zusammenrechnen und zurückgeben.
-        BiFunction<Integer, Integer, Integer> sum = (a, b) -> a + b;
-        System.out.println("Summe: " + sum.apply(10, 5));
+        // Aufgabe 4: Nur Namen der Studierenden extrahieren (map).
+        // Verwende map, um eine Liste mit allen Namen der Studierenden zu erzeugen.
+        students.stream()
+                .map(StudentSolution::getName)
+                .forEach(System.out::println);
 
-        // AUFGABE 6: Supplier ohne Parameter, Rückgabewert, mit einer Anweisung
-            // Der Supplier getRandom mit Typ Double soll mit Math.random() eine Zufallszahl zurückgeben
-        Supplier<Double> getRandom = () -> Math.random();
-        System.out.println("Zufallszahl: " + getRandom.get());
+        // Aufgabe 5: Anzahl aller Studierenden zählen.
+        // Gib die Gesamtzahl der Studierenden zurück.
+        long count = students.stream().count();
+        System.out.println("Anzahl: " + count);
 
-        // AUFGABE 7: Predicate mit einer Anweisung + return + Bedingung
-            // Das Predicate isShortWord mit Typ String soll zurückgeben ob ein übergebener String weniger als 5 Buchstaben hat
-        Predicate<String> isShortWord = word -> {
-            return word.length() < 5;
-        };
-        System.out.println("Ist kurz? 'Hund' -> " + isShortWord.test("Hund"));
-        System.out.println("Ist kurz? 'Elefant' -> " + isShortWord.test("Elefant"));
+        // Aufgabe 6: Alphabetisch nach Name sortieren.
+        // Sortiere die Studierenden nach Namen in alphabetischer Reihenfolge.
+        students.stream()
+                .sorted(Comparator.comparing(StudentSolution::getName))
+                .forEach(System.out::println);
 
+        // Aufgabe 7: Erste 3 Studierende ausgeben (limit).
+        // Gib nur die ersten drei Studierenden der Liste aus.
+        students.stream().limit(3).forEach(System.out::println);
 
-        /// FUNKTIONALE INTERFACES
-        // AUFGABE 1: Functional Interface ohne Parameter, keine Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface Hello in der Interfaces.java Datei mit einer Funktion execute()
-            // Die Instanz sayHello2() soll eine Lambda Funktion übergeben, die Hallo Welt ausgibt
-            // Rufe die Funktion mittels sayHello2.execute(); auf
-        HelloSolution sayHello2 = () -> System.out.println("Hallo Welt!");
-        sayHello2.execute();
+        // Aufgabe 8: Gibt es Studierende mit Note 1.0? (anyMatch).
+        // Prüfe, ob mindestens ein Studierender die Note 1.0 hat.
+        boolean hasTop = students.stream().anyMatch(s -> s.getGrade() == 1.0);
+        System.out.println("Hat Note 1.0: " + hasTop);
 
-        // AUFGABE 2: Ein Parameter, keine Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface PrintName in der Interfaces.java Datei mit einer Funktion print()
-            // Die Funktion soll ein Parameter String name haben
-            // Dieser soll mit einer Lambda Funktion in der Instanz printName2 übergeben werden
-            // So soll der Name in der Konsole ausgegeben werden
-        PrintNameSolution printName2 = name -> System.out.println("Name: " + name);
-        printName2.print("Anna");
+        // Aufgabe 9: Sind alle Studierenden älter als 18? (allMatch).
+        // Prüfe, ob alle Studierenden älter als 18 Jahre sind.
+        boolean allAdults = students.stream().allMatch(s -> s.getAge() > 18);
+        System.out.println("Alle über 18: " + allAdults);
 
-        // AUFGABE 3: Ein Parameter, Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface WordLength in der Interfaces.java Datei mit einer Funktion getLength()
-            // Diese soll ein Parameter String word enthalten, welches mit der zugehörigen lambda übergeben werden
-        WordLengthSolution wordLength2 = word -> word.length();
-        System.out.println("Länge: " + wordLength2.getLength("Lambda"));
+        // Aufgabe 10: Kein Studierender mit Note > 4.0? (noneMatch).
+        // Überprüfe, ob kein Studierender eine schlechtere Note als 4.0 hat.
+        boolean noneBad = students.stream().noneMatch(s -> s.getGrade() > 4.0);
+        System.out.println("Niemand > 4.0: " + noneBad);
 
-        // AUFGABE 4: Zwei Parameter, keine Rückgabe, eine Anweisung
-            // Das funktionale Interface PrintPersonAge soll eine Funktion print mit zwei Parametern (name und age) enthalten
-            // Diese sollen mit der lambda funktion ausgegeben werden
-        PrintPersonAgeSolution printAge2 = (name, age) -> System.out.println(name + " ist " + age + " Jahre alt.");
-        printAge2.print("Lukas", 29);
+        // Aufgabe 11: Durchschnittsnote aller Studierenden berechnen.
+        // Berechne die Durchschnittsnote aller Studierenden.
+        double avg = students.stream().mapToDouble(StudentSolution::getGrade).average().orElse(0);
+        System.out.println("Durchschnitt: " + avg);
 
-        // AUFGABE 5: Zwei Parameter, Rückgabe, eine Anweisung
-            // Das Funktionale Interface Add soll eine Funktion calculate mit zwei Integer Parametern a und b enthalten
-            // Die Lambda Funktion addiert beide Zahlen
-            // Schreibe ein println statement, welches das Interface mit der calculate Funktion nutzt
-        AddSolution add = (a, b) -> a + b;
-        System.out.println("Summe: " + add.calculate(10, 5));
+        // Aufgabe 12: Studierenden mit bester Note finden (min).
+        // Finde den Studierenden mit der besten (niedrigsten) Note.
+        students.stream()
+                .min(Comparator.comparing(StudentSolution::getGrade))
+                .ifPresent(System.out::println);
 
-        // AUFGABE 6: Kein Parameter, Rückgabewert, eine Anweisung
-            // Das RandomNumber Interface soll eine generate() Funktion ohne Parameter enthalten
-            // Die lambda FUnktion generiert eine Zufallszahl mit Math.random()
-            // Gib die Zufallszahl im Terminal aus
-        RandomNumberSolution generator = () -> Math.random();
-        System.out.println("Zufallszahl: " + generator.generate());
+        // Aufgabe 13: Studierenden mit schlechtester Note finden (max).
+        // Finde den Studierenden mit der schlechtesten (höchsten) Note.
+        students.stream()
+                .max(Comparator.comparing(StudentSolution::getGrade))
+                .ifPresent(System.out::println);
 
-        // AUFGABE 7: Ein Parameter, Rückgabe mit return-Anweisung + Block
-            // Das Interface IsShortWord enthält eine Funktion check mit einem Parameter String word
-            // Die lambda Funktion prüft ob das Wort weniger als 5 Buchstaben enthält
-            // Gib im Terminal aus ob der String "Hund" und der String "Elefant" weniger als 5 Buchstaben hat
-        IsShortWordSolution isShort = word -> {
-            return word.length() < 5;
-        };
-        System.out.println("Ist kurz? 'Hund' -> " + isShort.check("Hund"));
-        System.out.println("Ist kurz? 'Elefant' -> " + isShort.check("Elefant"));
+        // Aufgabe 14: Studierende nach Studienfach gruppieren.
+        // Gruppiere die Studierenden nach ihrem Studienfach.
+        Map<String, List<StudentSolution>> byMajor = students.stream().collect(groupingBy(StudentSolution::getMajor));
+        System.out.println(byMajor);
+
+        // Aufgabe 15: Anzahl pro Studienfach zählen.
+        // Zähle, wie viele Studierende es pro Studienfach gibt.
+        Map<String, Long> majorCount = students.stream().collect(groupingBy(StudentSolution::getMajor, counting()));
+        System.out.println(majorCount);
+
+        // Aufgabe 16: Alle Namen zu einer Zeichenkette (joining).
+        // Erstelle eine einzige Zeichenkette mit allen Namen, getrennt durch Kommas.
+        String names = students.stream().map(StudentSolution::getName).collect(joining(", "));
+        System.out.println(names);
+
+        // Aufgabe 17: Nach Alter sortieren, aber rückwärts.
+        // Sortiere die Studierenden absteigend nach Alter.
+        students.stream()
+                .sorted(Comparator.comparing(StudentSolution::getAge).reversed())
+                .forEach(System.out::println);
+
+        // Aufgabe 18: "Computer Science"-Studierende -> Namen sammeln.
+        // Sammle die Namen aller Studierenden im Fach "Computer Science".
+        List<String> csNames = students.stream()
+                .filter(s -> s.getMajor().equals("Computer Science"))
+                .map(StudentSolution::getName)
+                .collect(toList());
+        System.out.println(csNames);
+
+        // Aufgabe 19: Weibliche Studierende alphabetisch sortieren.
+        // Sortiere alle weiblichen Studierenden alphabetisch nach Name.
+        students.stream()
+                .filter(s -> s.getGender().equals("female"))
+                .sorted(Comparator.comparing(StudentSolution::getName))
+                .forEach(System.out::println);
+
+        // Aufgabe 20: Noten aufrunden und ausgeben.
+        // Runde alle Noten auf ganze Zahlen und gib sie aus.
+        students.stream()
+                .map(s -> (int) Math.round(s.getGrade()))
+                .forEach(System.out::println);
+
+        // Aufgabe 21: Bester Schnitt pro Studiengang.
+        // Finde für jedes Studienfach den Studierenden mit der besten Note.
+        Map<String, Optional<StudentSolution>> bestPerMajor = students.stream()
+                .collect(groupingBy(StudentSolution::getMajor, minBy(Comparator.comparing(StudentSolution::getGrade))));
+        System.out.println(bestPerMajor);
+
+        // Aufgabe 22: Durchschnittsnote pro Studiengang.
+        // Berechne die Durchschnittsnote für jedes Studienfach.
+        Map<String, Double> avgPerMajor = students.stream()
+                .collect(groupingBy(StudentSolution::getMajor, averagingDouble(StudentSolution::getGrade)));
+        System.out.println(avgPerMajor);
+
+        // Aufgabe 23: Studierende nach Geschlecht gruppieren.
+        // Gruppiere die Studierenden nach Geschlecht und zähle sie.
+        Map<String, Long> genderCount = students.stream()
+                .collect(groupingBy(StudentSolution::getGender, counting()));
+        System.out.println(genderCount);
+
+        // Aufgabe 24: Ältester pro Studienfach.
+        // Finde den ältesten Studierenden in jedem Studienfach.
+        Map<String, Optional<StudentSolution>> oldestPerMajor = students.stream()
+                .collect(groupingBy(StudentSolution::getMajor, maxBy(Comparator.comparing(StudentSolution::getAge))));
+        System.out.println(oldestPerMajor);
+
+        // Aufgabe 25: Zweitbeste Note ermitteln.
+        // Ermittle die zweitbeste (zweitniedrigste) Note unter allen Studierenden.
+        students.stream()
+                .map(StudentSolution::getGrade)
+                .sorted()
+                .skip(1)
+                .findFirst()
+                .ifPresent(System.out::println);
+
+        // Aufgabe 26: Männliche mit Note < 2.0, sortiert.
+        // Gib alle männlichen Studierenden mit Note < 2.0 sortiert nach Note aus.
+        students.stream()
+                .filter(s -> s.getGender().equals("male") && s.getGrade() < 2.0)
+                .sorted(Comparator.comparing(StudentSolution::getGrade))
+                .forEach(System.out::println);
+
+        // Aufgabe 27: Durchschnittsalter für Note < 2.0.
+        // Berechne das Durchschnittsalter aller Studierenden mit einer Note < 2.0.
+        double avgAge = students.stream()
+                .filter(s -> s.getGrade() < 2.0)
+                .mapToInt(StudentSolution::getAge)
+                .average().orElse(0);
+        System.out.println("Durchschnittsalter: " + avgAge);
+
+        // Aufgabe 28: Map<Name, Note>.
+        // Sammle die Studierenden in einer Map, wobei der Name der Schlüssel ist und die Note der Wert.
+        Map<String, Double> nameGradeMap = students.stream()
+                .collect(toMap(StudentSolution::getName, StudentSolution::getGrade));
+        System.out.println(nameGradeMap);
+
+        // Aufgabe 29: In zwei Listen: unter/über Durchschnitt.
+        // Teile die Studierenden in zwei Gruppen: unter und über dem Durchschnitt.
+        double avgAll = students.stream().mapToDouble(StudentSolution::getGrade).average().orElse(0);
+        Map<Boolean, List<StudentSolution>> partitioned = students.stream()
+                .collect(partitioningBy(s -> s.getGrade() < avgAll));
+        System.out.println("Unter Durchschnitt: " + partitioned.get(true));
+        System.out.println("Über Durchschnitt: " + partitioned.get(false));
+
+        // Aufgabe 30: Top 3 Noten extrahieren.
+        // Extrahiere die drei besten Noten (kleinsten Werte) und speichere sie in einer Liste.
+        List<Double> top3Grades = students.stream()
+                .map(StudentSolution::getGrade)
+                .sorted()
+                .limit(3)
+                .collect(toList());
+        System.out.println("Top 3 Noten: " + top3Grades);
     }
 }
+

@@ -1,72 +1,111 @@
 package src;
 
-import java.util.function.*;
+import java.util.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        /// LAMBDA EXPRESSIONS
-        // AUFGABE 1: Runnable ohne Parameter, ohne Rückgabewert, eine Anweisung
-            // Das Runnable sayHello soll "Hallo Welt" im Terminal ausgeben
+        List<Student> students = List.of(
+                new Student("Anna", 22, "female", 1.3, "Computer Science"),
+                new Student("Ben", 24, "male", 2.0, "Mathematics"),
+                new Student("Carla", 21, "female", 2.5, "Physics"),
+                new Student("David", 23, "male", 1.7, "Engineering"),
+                new Student("Ella", 20, "female", 1.0, "Computer Science"),
+                new Student("Finn", 25, "male", 3.2, "History"),
+                new Student("Greta", 22, "female", 1.9, "Biology")
+        );
 
-        // AUFGABE 2: Consumer mit 1 Parameter, keine Rückgabe, eine Anweisung
-            // Der Consumer printName mit Typ String soll beim Aufruf für einen String name "Name: " + name ausgeben
+        // Aufgabe 1: Alle Studierenden ausgeben.
+            // Schreibe eine Stream-Operation, die alle Studierenden in der Konsole ausgibt.
 
-        // AUFGABE 3: Function mit 1 Parameter, 1 Rückgabewert, eine Anweisung
-            // Die Function wordLength mit Typen <String, Integer> soll für einen übergebenen String die Länge des Strings zurückgeben
-            // Gib die Länge des Strings im Terminal aus
+        // Aufgabe 2: Nur weibliche Studierende filtern.
+            // Filtere die Liste so, dass nur weibliche Studierende ausgegeben werden.
 
-        // AUFGABE 4: BiConsumer mit 2 Parametern, keine Rückgabe, eine Anweisung
-            // Der BiConsumer printAge mit Typen <String, Integer> soll eien übergebenen Namen + Alter ausgeben
+        // Aufgabe 3: Studierende mit Note < 2.0 anzeigen.
+            // Zeige alle Studierenden mit einer Note besser als 2.0 an.
 
-        // AUFGABE 5: BiFunction mit 2 Parametern, 1 Rückgabewert, eine Anweisung
-            // Die BiFunction mit Typ <Integer, Integer, Integer> sum soll zwei Integer a und b zusammenrechnen und zurückgeben.
-            // Gib das Ergebnis im Terminal aus
+        // Aufgabe 4: Nur Namen der Studierenden extrahieren (map).
+            // Verwende map, um eine Liste mit allen Namen der Studierenden zu erzeugen.
 
-        // AUFGABE 6: Supplier ohne Parameter, Rückgabewert, mit einer Anweisung
-            // Der Supplier getRandom mit Typ Double soll mit Math.random() eine Zufallszahl zurückgeben
-            // Gib die Zahl im Terminal aus
+        // Aufgabe 5: Anzahl aller Studierenden zählen.
+            // Gib die Gesamtzahl der Studierenden zurück.
 
-        // AUFGABE 7: Predicate mit einer Anweisung + return + Bedingung
-            // Das Predicate isShortWord mit Typ String soll zurückgeben ob ein übergebener String weniger als 5 Buchstaben hat
-            // Prüfe jeweils ob "Hund" und "Elefant" weniger als 5 Buchstaben haben und gib das Ergebnis aus
+        // Aufgabe 6: Alphabetisch nach Name sortieren.
+            // Sortiere die Studierenden nach Namen in alphabetischer Reihenfolge.
 
+        // Aufgabe 7: Erste 3 Studierende ausgeben (limit).
+            // Gib nur die ersten drei Studierenden der Liste aus.
 
-        /// FUNKTIONALE INTERFACES
-        // AUFGABE 1: Functional Interface ohne Parameter, keine Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface Hello in der Interfaces.java Datei mit einer Funktion execute()
-            // Die Instanz sayHello2() soll eine Lambda Funktion übergeben, die Hallo Welt ausgibt
-            // Rufe die Funktion mittels sayHello2.execute(); auf
-        Hello sayHello2 =
-        sayHello2.execute();
+        // Aufgabe 8: Gibt es Studierende mit Note 1.0? (anyMatch).
+            // Prüfe, ob mindestens ein Studierender die Note 1.0 hat.
 
-        // AUFGABE 2: Ein Parameter, keine Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface PrintName in der Interfaces.java Datei mit einer Funktion print()
-            // Die Funktion soll ein Parameter String name haben
-            // Dieser soll mit einer Lambda Funktion in der Instanz printName2 übergeben werden
-            // So soll der Name in der Konsole ausgegeben werden
+        // Aufgabe 9: Sind alle Studierenden älter als 18? (allMatch).
+            // Prüfe, ob alle Studierenden älter als 18 Jahre sind.
 
-        // AUFGABE 3: Ein Parameter, Rückgabe, eine Anweisung
-            // Erstelle das funktionale Interface WordLength in der Interfaces.java Datei mit einer Funktion getLength()
-            // Diese soll ein Parameter String word enthalten, welches mit der zugehörigen lambda übergeben werden
+        // Aufgabe 10: Kein Studierender mit Note > 4.0? (noneMatch).
+            // Überprüfe, ob kein Studierender eine schlechtere Note als 4.0 hat.
 
-        // AUFGABE 4: Zwei Parameter, keine Rückgabe, eine Anweisung
-            // Das funktionale Interface PrintPersonAge soll eine Funktion print mit zwei Parametern (name und age) enthalten
-            // Diese sollen mit der lambda funktion ausgegeben werden
+        // Aufgabe 11: Durchschnittsnote aller Studierenden berechnen.
+            // Berechne die Durchschnittsnote aller Studierenden.
 
-        // AUFGABE 5: Zwei Parameter, Rückgabe, eine Anweisung
-            // Das Funktionale Interface Add soll eine Funktion calculate mit zwei Integer Parametern a und b enthalten
-            // Die Lambda Funktion addiert beide Zahlen
-            // Schreibe ein println statement, welches das Interface mit der calculate Funktion nutzt
+        // Aufgabe 12: Studierenden mit bester Note finden (min).
+            // Finde den Studierenden mit der besten (niedrigsten) Note.
 
-        // AUFGABE 6: Kein Parameter, Rückgabewert, eine Anweisung
-            // Das RandomNumber Interface soll eine generate() Funktion ohne Parameter enthalten
-            // Die lambda FUnktion generiert eine Zufallszahl mit Math.random()
-            // Gib die Zufallszahl im Terminal aus
+        // Aufgabe 13: Studierenden mit schlechtester Note finden (max).
+            // Finde den Studierenden mit der schlechtesten (höchsten) Note.
 
-        // AUFGABE 7: Ein Parameter, Rückgabe mit return-Anweisung + Block
-            // Das Interface IsShortWord enthält eine Funktion check mit einem Parameter String word
-            // Die lambda Funktion prüft ob das Wort weniger als 5 Buchstaben enthält
-            // Gib im Terminal aus ob der String "Hund" und der String "Elefant" weniger als 5 Buchstaben hat
+        // Aufgabe 14: Studierende nach Studienfach gruppieren.
+            // Gruppiere die Studierenden nach ihrem Studienfach.
+
+        // Aufgabe 15: Anzahl pro Studienfach zählen.
+            // Zähle, wie viele Studierende es pro Studienfach gibt.
+
+        // Aufgabe 16: Alle Namen zu einer Zeichenkette (joining).
+            // Erstelle eine einzige Zeichenkette mit allen Namen, getrennt durch Kommas.
+
+        // Aufgabe 17: Nach Alter sortieren, aber rückwärts.
+            // Sortiere die Studierenden absteigend nach Alter.
+
+        // Aufgabe 18: "Computer Science"-Studierende -> Namen sammeln.
+            // Sammle die Namen aller Studierenden im Fach "Computer Science".
+
+        // Aufgabe 19: Weibliche Studierende alphabetisch sortieren.
+            // Sortiere alle weiblichen Studierenden alphabetisch nach Name.
+
+        // Aufgabe 20: Noten aufrunden und ausgeben.
+            // Runde alle Noten auf ganze Zahlen und gib sie aus.
+
+        // Aufgabe 21: Bester Schnitt pro Studiengang.
+            // Finde für jedes Studienfach den Studierenden mit der besten Note.
+
+        // Aufgabe 22: Durchschnittsnote pro Studiengang.
+            // Berechne die Durchschnittsnote für jedes Studienfach.
+
+        // Aufgabe 23: Studierende nach Geschlecht gruppieren.
+            // Gruppiere die Studierenden nach Geschlecht und zähle sie.
+
+        // Aufgabe 24: Ältester pro Studienfach.
+            // Finde den ältesten Studierenden in jedem Studienfach.
+
+        // Aufgabe 25: Zweitbeste Note ermitteln.
+            // Ermittle die zweitbeste (zweitniedrigste) Note unter allen Studierenden.
+
+        // Aufgabe 26: Männliche mit Note < 2.0, sortiert.
+            // Gib alle männlichen Studierenden mit Note < 2.0 sortiert nach Note aus.
+
+        // Aufgabe 27: Durchschnittsalter für Note < 2.0.
+            // Berechne das Durchschnittsalter aller Studierenden mit einer Note < 2.0.
+
+        // Aufgabe 28: Map<Name, Note>.
+            // Sammle die Studierenden in einer Map, wobei der Name der Schlüssel ist und die Note der Wert.
+
+        // Aufgabe 29: In zwei Listen: unter/über Durchschnitt.
+            // Teile die Studierenden in zwei Gruppen: unter und über dem Durchschnitt.
+
+        // Aufgabe 30: Top 3 Noten extrahieren.
+            // Extrahiere die drei besten Noten (kleinsten Werte) und speichere sie in einer Liste.
     }
 }
+
