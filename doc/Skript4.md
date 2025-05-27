@@ -213,6 +213,37 @@ public static void main(String[] args) {
     System.out.println(lengthGetter.apply("HelloWorld"));
 } 
 ```
+---
+## Eigene Funktionale Interfaces
+
+* Verwendung der `@FunctionalInterface` Annotation
+* Implementierung über Interface
+* Beliebige Abstrakte Funktion(en) hinzufügen
+
+---
+
+## Interface Erstellen
+```java
+@FunctionalInterface
+interface MultiplikatorInterface {
+    int calculate(int a, int b);
+}
+```
+
+## Interface verwenden
+```java
+public static void main(String[] args) {
+    MultiplikatorInterface multiplikator = (a, b) -> a * b;
+    System.out.println("Ergebnis: " + multiplikator.calculate(10, 5));
+}
+
+```
+
+---
+
+## Vorteile eigener Funktionaler Interfaces
+* Bessere Lesbarkeit und Verstädnlichkeit
+* Individuelle Interface- und Methodennamen
 
 ---
 
