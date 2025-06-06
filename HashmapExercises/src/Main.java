@@ -45,5 +45,4 @@ public class Main {
         // Create a function that prints all name-age pairs in the map
         // Use a for-each loop with entrySet()
 
-    }
 }
