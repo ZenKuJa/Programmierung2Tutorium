@@ -1,28 +1,36 @@
-import java.util.Collections;
-import java.util.Comparator;
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 /**
- * Kommandozeilen-Anwendung zur Demonstration der Produktverwaltung.
- * Ermöglicht das Hinzufügen, Anzeigen und Sortieren von Produkten.
+ * Kommandozeilen-Anwendung zur Verwaltung der Bibliotheksbestände.
+ * Bietet Funktionen zum Hinzufügen, Auflisten, Speichern und Laden von Medien.
  */
 public class CliApp {
-    private ProductManager productManager;
+    // Instanz der Bibliothek, die verschiedene Medientypen verwalten kann.
+    private Library<Medium> library;
     private Scanner scanner;
+    private static final String DATA_FILE = "library_data.ser"; // Dateiname für die Speicherung
 
     /**
      * Konstruktor für die CliApp.
-     * Initialisiert den ProductManager und den Scanner.
+     * Initialisiert die Bibliothek und lädt bestehende Daten.
      */
     public CliApp() {
-        productManager = new ProductManager();
+        library = new Library<>(DATA_FILE);
         scanner = new Scanner(System.in);
+        // Versucht, die Bibliotheksdaten beim Start zu laden
+        try {
+            library.loadLibrary();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Fehler beim Laden der Bibliotheksdaten: " + e.getMessage());
+            System.out.println("Startet mit leerem Bibliotheksbestand.");
+        }
     }
 
     /**
-     * Zeigt das Hauptmenü an und verarbeitet Benutzereingaben.
+     * Startet die Hauptschleife der Anwendung und verarbeitet Benutzereingaben.
      */
     public void run() {
         int choice;
@@ -31,26 +39,30 @@ public class CliApp {
             try {
                 System.out.print("Wählen Sie eine Option: ");
                 choice = scanner.nextInt();
-                scanner.nextLine(); // Konsumiere den Rest der Zeile
+                scanner.nextLine(); // Konsumiere den Zeilenumbruch
                 
                 switch (choice) {
                     case 1:
-                        addProduct();
+                        addBook();
                         break;
                     case 2:
-                        listAllProducts();
+                        addMagazine();
                         break;
                     case 3:
-                        listProductsSortedByName();
+                        listAllMedia();
                         break;
                     case 4:
-                        listProductsSortedByPrice();
+                        removeMedium();
                         break;
                     case 5:
-                        updateProductPrice();
+                        saveLibraryData();
+                        break;
+                    case 6:
+                        loadLibraryData();
                         break;
                     case 0:
-                        System.out.println("Anwendung wird beendet. Auf Wiedersehen!");
+                        System.out.println("Anwendung wird beendet. Bibliotheksdaten werden gespeichert...");
+                        saveLibraryData(); // Speichert die Daten beim Beenden
                         break;
                     default:
                         System.out.println("Ungültige Option. Bitte versuchen Sie es erneut.");
@@ -69,112 +81,128 @@ public class CliApp {
     }
 
     /**
-     * Zeigt die Menüoptionen an.
+     * Zeigt das Hauptmenü der Anwendung an.
      */
     private void printMenu() {
-        System.out.println("--- Produktverwaltung ---");
-        System.out.println("1. Produkt hinzufügen");
-        System.out.println("2. Alle Produkte auflisten (nach ID sortiert)");
-        System.out.println("3. Produkte nach Name sortiert auflisten");
-        System.out.println("4. Produkte nach Preis sortiert auflisten");
-        System.out.println("5. Produktpreis aktualisieren");
+        System.out.println("--- Bibliotheksverwaltung ---");
+        System.out.println("1. Buch hinzufügen");
+        System.out.println("2. Zeitschrift hinzufügen");
+        System.out.println("3. Alle Medien auflisten");
+        System.out.println("4. Medium entfernen (nach ISBN)");
+        System.out.println("5. Bibliotheksdaten speichern");
+        System.out.println("6. Bibliotheksdaten laden");
         System.out.println("0. Beenden");
-        System.out.println("-------------------------");
+        System.out.println("-----------------------------");
     }
 
     /**
-     * Ermöglicht dem Benutzer, ein neues Produkt hinzuzufügen.
-     * Fragt nach ID, Name und Preis des Produkts.
+     * Ermöglicht das Hinzufügen eines neuen Buches zur Bibliothek.
      */
-    private void addProduct() {
-        System.out.println("\n--- Produkt hinzufügen ---");
-        System.out.print("Geben Sie die Produkt-ID ein: ");
-        String id = scanner.nextLine();
-        System.out.print("Geben Sie den Produktnamen ein: ");
-        String name = scanner.nextLine();
-        System.out.print("Geben Sie den Produktpreis ein: ");
-        double price = scanner.nextDouble();
-        scanner.nextLine(); // Konsumiere den Rest der Zeile
+    private void addBook() {
+        System.out.println("\n--- Buch hinzufügen ---");
+        System.out.print("Titel: ");
+        String title = scanner.nextLine();
+        System.out.print("ISBN: ");
+        String isbn = scanner.nextLine();
+        System.out.print("Autor: ");
+        String author = scanner.nextLine();
+        System.out.print("Anzahl Seiten: ");
+        int pages = scanner.nextInt();
+        scanner.nextLine(); 
 
         try {
-            Product newProduct = new Product(id, name, price);
-            if (productManager.addProduct(newProduct)) {
-                System.out.println("Produkt '" + name + "' erfolgreich hinzugefügt.");
+            Book book = new Book(title, isbn, author, pages);
+            if (library.addMedium(book)) {
+                System.out.println("Buch erfolgreich hinzugefügt.");
             } else {
-                System.out.println("Fehler: Produkt mit ID '" + id + "' existiert bereits.");
+                System.out.println("Fehler: Ein Medium mit dieser ISBN existiert bereits.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Fehler beim Hinzufügen des Produkts: " + e.getMessage());
+            System.out.println("Fehler beim Hinzufügen des Buches: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("Ungültige Eingabe für Anzahl Seiten. Bitte geben Sie eine Zahl ein.");
+            scanner.nextLine(); 
         }
     }
 
     /**
-     * Listet alle Produkte auf, standardmäßig sortiert nach ihrer ID (Comparable).
+     * Ermöglicht das Hinzufügen einer neuen Zeitschrift zur Bibliothek.
      */
-    private void listAllProducts() {
-        System.out.println("\n--- Alle Produkte (sortiert nach ID) ---");
-        List<Product> products = productManager.getAllProducts();
-        Collections.sort(products); // Nutzt die natürliche Ordnung (Comparable)
-        if (products.isEmpty()) {
-            System.out.println("Keine Produkte vorhanden.");
-        } else {
-            products.forEach(System.out::println);
-        }
-    }
-
-    /**
-     * Listet Produkte auf, sortiert nach ihrem Namen.
-     * Verwendet einen Lambda-Ausdruck für den Comparator.
-     */
-    private void listProductsSortedByName() {
-        System.out.println("\n--- Produkte sortiert nach Name ---");
-        // Sortieren der Produkte nach Namen mithilfe eines Lambda-Ausdrucks für den Comparator
-        List<Product> sortedProducts = productManager.getSortedProducts(
-            (p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName())
-        );
-        if (sortedProducts.isEmpty()) {
-            System.out.println("Keine Produkte vorhanden.");
-        } else {
-            sortedProducts.forEach(System.out::println);
-        }
-    }
-
-    /**
-     * Listet Produkte auf, sortiert nach ihrem Preis.
-     * Verwendet einen Lambda-Ausdruck für den Comparator.
-     */
-    private void listProductsSortedByPrice() {
-        System.out.println("\n--- Produkte sortiert nach Preis ---");
-        // Sortieren der Produkte nach Preis mithilfe eines Lambda-Ausdrucks für den Comparator
-        List<Product> sortedProducts = productManager.getSortedProducts(
-            Comparator.comparingDouble(Product::getPrice)
-        );
-        if (sortedProducts.isEmpty()) {
-            System.out.println("Keine Produkte vorhanden.");
-        } else {
-            sortedProducts.forEach(System.out::println);
-        }
-    }
-
-    /**
-     * Ermöglicht dem Benutzer, den Preis eines bestehenden Produkts zu aktualisieren.
-     */
-    private void updateProductPrice() {
-        System.out.println("\n--- Produktpreis aktualisieren ---");
-        System.out.print("Geben Sie die ID des Produkts ein, dessen Preis aktualisiert werden soll: ");
-        String id = scanner.nextLine();
-        System.out.print("Geben Sie den neuen Preis ein: ");
-        double newPrice = scanner.nextDouble();
-        scanner.nextLine(); // Konsumiere den Rest der Zeile
+    private void addMagazine() {
+        System.out.println("\n--- Zeitschrift hinzufügen ---");
+        System.out.print("Titel: ");
+        String title = scanner.nextLine();
+        System.out.print("ISBN (oder ISSN): ");
+        String isbn = scanner.nextLine();
+        System.out.print("Ausgabennummer: ");
+        int issue = scanner.nextInt();
+        System.out.print("Erscheinungsjahr: ");
+        int year = scanner.nextInt();
+        scanner.nextLine(); 
 
         try {
-            if (productManager.updateProductPrice(id, newPrice)) {
-                System.out.println("Preis für Produkt mit ID '" + id + "' erfolgreich auf " + String.format("%.2f", newPrice) + "€ aktualisiert.");
+            Magazine magazine = new Magazine(title, isbn, issue, year);
+            if (library.addMedium(magazine)) {
+                System.out.println("Zeitschrift erfolgreich hinzugefügt.");
             } else {
-                System.out.println("Fehler: Produkt mit ID '" + id + "' nicht gefunden.");
+                System.out.println("Fehler: Ein Medium mit dieser ISBN existiert bereits.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Fehler beim Aktualisieren des Preises: " + e.getMessage());
+            System.out.println("Fehler beim Hinzufügen der Zeitschrift: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("Ungültige Eingabe für Ausgabennummer oder Erscheinungsjahr. Bitte geben Sie Zahlen ein.");
+            scanner.nextLine(); 
+        }
+    }
+
+    /**
+     * Listet alle im System vorhandenen Medien auf.
+     */
+    private void listAllMedia() {
+        System.out.println("\n--- Aktueller Medienbestand ---");
+        List<Medium> allMedia = library.getAllMedia();
+        if (allMedia.isEmpty()) {
+            System.out.println("Der Bibliotheksbestand ist leer.");
+        } else {
+            allMedia.forEach(System.out::println);
+        }
+    }
+
+    /**
+     * Entfernt ein Medium aus der Bibliothek anhand seiner ISBN.
+     */
+    private void removeMedium() {
+        System.out.println("\n--- Medium entfernen ---");
+        System.out.print("Geben Sie die ISBN des zu entfernenden Mediums ein: ");
+        String isbn = scanner.nextLine();
+
+        if (library.removeMedium(isbn)) {
+            System.out.println("Medium mit ISBN '" + isbn + "' erfolgreich entfernt.");
+        } else {
+            System.out.println("Fehler: Medium mit ISBN '" + isbn + "' nicht gefunden.");
+        }
+    }
+
+    /**
+     * Speichert den aktuellen Bibliotheksbestand in der konfigurierten Datei.
+     */
+    private void saveLibraryData() {
+        try {
+            library.saveLibrary();
+        } catch (IOException e) {
+            System.err.println("Fehler beim Speichern der Daten: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Lädt den Bibliotheksbestand aus der konfigurierten Datei.
+     */
+    private void loadLibraryData() {
+        try {
+            library.loadLibrary();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Fehler beim Laden der Daten: " + e.getMessage());
+            System.out.println("Bibliotheksdaten konnten nicht geladen werden.");
         }
     }
 
