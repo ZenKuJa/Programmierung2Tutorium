@@ -31,8 +31,6 @@ Jannes Kurzke und Fabian Bauriedl
 ## Organisatorisches
 > Steffen und Mario behandeln die Themen in unterschiedlicher Reihenfolge
 
-<img src = "..//resources//mentimeter.png" alt = "mentimeter qr-code">
-
 ---
 ## Organisatorisches
 Komm in die Gruppe!
@@ -75,7 +73,7 @@ Komm in die Gruppe!
 
 |Datentyp|Größe|Wertebereich|
 |---|---|---|
-|boolean|1 Byte|true, false|
+|boolean|1 Bit|true, false|
 
 ---
 ### Datentypen - Ganzzahlen
@@ -468,6 +466,7 @@ public static void main(String[] args) {
     // greater
 }
 ```
+---
 
 ## Übungen (Stand 21.01.2026)
 **Vorbereitung:**
@@ -476,6 +475,9 @@ public static void main(String[] args) {
 * 'git clone https://github.com/Kona418/ProgrammierungTutorium.git'
 * 'cd ProgrammierungTutorium'
 * Alternativ: Menüpunkt 'Neues Projekt aus Versionskontrolle' aufrufen und Repository Link einfügen
+
+---
+
 
 **Verfügbare Themen:**
 * 'datatypes'
