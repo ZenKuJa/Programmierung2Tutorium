@@ -1,7 +1,7 @@
 package src;
 
 // EXERCISES
-public class MethodOverloadingSolutions {
+public class MethodOverloadingExercises {
     public static void main(String[] args) {
 
         // ======================================
@@ -86,97 +86,3 @@ public class MethodOverloadingSolutions {
 // ======================================
 // KLASSEN
 // ======================================
-
-class Rechner {
-
-    static int addiere(int a, int b) {
-        return a + b;
-    }
-
-    static double addiere(double a, double b) {
-        return a + b;
-    }
-
-    static int berechne(int a, int b) {
-        return a + b;
-    }
-
-    static int berechne(int a, int b, int c) {
-        return a + b + c;
-    }
-}
-
-class Begruesser {
-
-    static void begruesse() {
-        System.out.println("Hallo!");
-    }
-
-    static void begruesse(String name) {
-        System.out.println("Hallo " + name + "!");
-    }
-}
-
-class Drucker {
-
-    static void drucke(String text) {
-        System.out.println("Text: " + text);
-    }
-
-    static void drucke(int zahl) {
-        System.out.println("Zahl (int): " + zahl);
-    }
-
-    static void drucke(double zahl) {
-        System.out.println("Zahl (double): " + zahl);
-    }
-}
-
-class Student {
-    private String name;
-    private int matrikelnummer;
-
-    Student(String name) {
-        this.name = name;
-        this.matrikelnummer = 0;
-    }
-
-    Student(String name, int matrikelnummer) {
-        this.name = name;
-        this.matrikelnummer = matrikelnummer;
-    }
-
-    String getName() {
-        return name;
-    }
-
-    int getMatrikelnummer() {
-        return matrikelnummer;
-    }
-}
-
-class Geometrie {
-
-    static double flaeche(double radius) {
-        return Math.PI * radius * radius;
-    }
-
-    static double flaeche(double laenge, double breite) {
-        return laenge * breite;
-    }
-}
-
-class Info {
-
-    static void info(String text) {
-        System.out.println(text);
-    }
-
-    static void info(String text, int zahl) {
-        System.out.println(text + ": " + zahl);
-    }
-
-    static void info(String text, double zahl) {
-        System.out.println(text + ": " + zahl);
-    }
-}
